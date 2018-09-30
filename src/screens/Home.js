@@ -25,7 +25,7 @@ export default class Home extends Component {
             tierTotal: 5,
             startDayCurrTier: 0,
             endDayCurrTier: 0,
-            earningUntilNextTier: 0,
+            earningUntilNextTier: 100,
             // timeUntilNextTier = time until next tier in milliseconds
             timeUntilNextTier: 5 * 60 * 60 * 1000 + 80 * 60 * 1000 + 5 * 1000,
             codePromotion: "NIMA01",
@@ -55,14 +55,14 @@ export default class Home extends Component {
         return <ReduceScreenButton setScreenHeight={this.setScreenHeight.bind(this)}></ReduceScreenButton>
     }
 
-    formatToDetailedTime(timeMilli, fontSizeVals, fontSizeUnits, fontWeightVals, colorVals){
+    formatToDetailedTime(timeMilli, fontSizeVals, fontSizeUnits, fontWeightVals, colorVals, colorUnits){
         hours = timeMilli / (60 * 60 * 1000);
         if (this.state.expandScreen){
             Math.floor(hours) < hours ? hours = Math.floor(hours) + 1: hours = Math.floor(hours);
             return(
                 <View style={{flexDirection: 'row'}}>
                     <Text style={{color: colorVals, fontWeight: fontWeightVals, lineHeight: fontSizeVals, fontSize: fontSizeVals}}>{hours}</Text>
-                    <Text style={{lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>h</Text>
+                    <Text style={{color: colorUnits, lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>h</Text>
                 </View>
             );
         } else {
@@ -70,9 +70,9 @@ export default class Home extends Component {
             return(
                 <View style={{flexDirection: 'row'}}>
                     <Text style={{color: colorVals, fontWeight: fontWeightVals, lineHeight: fontSizeVals, fontSize: fontSizeVals}}>{Math.floor(hours)}</Text>
-                    <Text style={{lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>h </Text>
+                    <Text style={{color: colorUnits, lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>h </Text>
                     <Text style={{color: colorVals, fontWeight: fontWeightVals, lineHeight: fontSizeVals, fontSize: fontSizeVals}}>{minutes}</Text>
-                    <Text style={{lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>m</Text>
+                    <Text style={{color: colorUnits, lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>m</Text>
                 </View>
             ); 
         }
@@ -83,16 +83,16 @@ export default class Home extends Component {
             return(
                 <View style={{padding: 5, flexDirection: 'row', justifyContent: 'space-around', width: width, marginTop: 20}}>
                     <View style={{alignItems: 'center', justifyContent: 'center', width: width/3, height: height/9}}>
-                        <Text style={{fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold'}}>Referals</Text>
-                        <Text style={{fontSize: 11, textTransform: 'uppercase'}}>{new Date().getFullYear()}</Text>
-                        <Text style={{fontSize: 30}}>{this.state.numReferals}</Text>
+                        <Text style={{color: '#B4B4B4', fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold'}}>Referals</Text>
+                        <Text style={{color: '#B4B4B4',fontSize: 11, textTransform: 'uppercase'}}>{new Date().getFullYear()}</Text>
+                        <Text style={{color: '#4F4F4F', fontSize: 30}}>{this.state.numReferals}</Text>
                     </View>
                     <View style={{alignItems: 'center', justifyContent: 'center', width: width/3, height: height/9}}>
-                        <Text style={{fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold'}}>Total Earnings</Text>
-                        <Text style={{fontSize: 11, textTransform: 'uppercase'}}>{new Date().getFullYear()}</Text>
+                        <Text style={{color: '#B4B4B4', fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold'}}>Total Earnings</Text>
+                        <Text style={{color: '#B4B4B4', fontSize: 11, textTransform: 'uppercase'}}>{new Date().getFullYear()}</Text>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Text style={{fontSize: 25}}>$</Text>
-                            <Text style={{fontSize: 30}}>{this.state.earningsTotal}</Text>
+                            <Text style={{color: '#4F4F4F', fontSize: 25}}>$</Text>
+                            <Text style={{color: '#4F4F4F', fontSize: 30}}>{this.state.earningsTotal}</Text>
                         </View>
                     </View>
                 </View>
@@ -105,17 +105,17 @@ export default class Home extends Component {
             return( 
                 <View style={{marginTop: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
                     <View style={{padding: 5, paddingRight: 10}}>
-                        <Text style={{fontSize: 11, width: 100, textAlign: 'right', textTransform: 'uppercase'}}>Day {this.state.dayCurr} of {this.state.dayTotal}</Text>
+                        <Text style={{color: '#B4B4B4', fontSize: 11, width: 100, textAlign: 'right', textTransform: 'uppercase'}}>Day {this.state.dayCurr} of {this.state.dayTotal}</Text>
                     </View>
                     <View style={{padding: 5, paddingLeft: 10, borderLeftColor: 'tomato', borderLeftWidth: 2, }}>
-                        <Text style={{fontSize: 11, width: 100, textAlign: 'left', textTransform: 'uppercase'}}>{this.state.startDayCurrTier}/18 - {this.state.endDayCurrTier}/18</Text>
+                        <Text style={{fontSize: 11, color: '#B4B4B4', width: 100, textAlign: 'left', textTransform: 'uppercase'}}>{this.state.startDayCurrTier}/18 - {this.state.endDayCurrTier}/18</Text>
                     </View>
                 </View>
             );
         }
         return(
             <View style={{marginTop: 5, padding: 5, paddingRight: 10}}>
-                <Text style={{fontSize: 11, width: 100, textAlign: 'center', textTransform: 'uppercase'}}>Day {this.state.dayCurr} of {this.state.dayTotal}</Text>
+                <Text style={{fontSize: 11, color: '#B4B4B4', width: 100, textAlign: 'center', textTransform: 'uppercase'}}>Day {this.state.dayCurr} of {this.state.dayTotal}</Text>
             </View>
         );
     }
@@ -124,17 +124,17 @@ export default class Home extends Component {
         if (this.state.expandScreen){
             return (
                 <View style={{flexDirection: 'row', alignItems: 'center', fontSize: 13}}>
-                    <Text>Tier </Text>
-                    <Text style={{fontWeight: 'bold'}}>{this.state.tierCurr}</Text>
+                    <Text style={{color: '#B4B4B4'}}>Tier </Text>
+                    <Text style={{color: '#9A9A9A', fontWeight: 'bold'}}>{this.state.tierCurr}</Text>
                 </View>
             );
         }
         return (
             <View style={{flexDirection: 'row', alignItems: 'center', fontSize: 13}}>
-                <Text>Tier </Text>
-                <Text style={{fontWeight: 'bold'}}>{this.state.tierCurr} </Text>
-                <Text>of </Text>
-                <Text style={{fontWeight: 'bold'}}>{this.state.tierTotal}</Text>
+                <Text style={{color: '#B4B4B4'}}>Tier </Text>
+                <Text style={{color: '#9A9A9A', fontWeight: 'bold'}}>{this.state.tierCurr} </Text>
+                <Text style={{color: '#B4B4B4'}}>of </Text>
+                <Text style={{color: '#9A9A9A', fontWeight: 'bold'}}>{this.state.tierTotal}</Text>
             </View>
         );
         
@@ -147,30 +147,30 @@ export default class Home extends Component {
                 <View style={{backgroundColor: '#FFFFFF', height: this.state.expandableScreenHeight, flexDirection: 'column', alignItems: 'center'}}>
                     <View style={{marginTop: 35, alignItems: 'center', justifyContent: 'center'}}>
                         <View>
-                            <Text style={{fontSize: 22, fontWeight: 'bold'}}>Earnings</Text>
+                            <Text style={{color: "#4F4F4F", fontSize: 22, fontWeight: 'bold'}}>Earnings</Text>
                         </View>        
                         {this.displaySchedule()}
                         <View style={{padding: 2, flexDirection: 'row', alignItems: 'center'}}>
-                            <Text style={{fontSize: 30}}>$ </Text>
-                            <Text style={{fontSize: 50, fontWeight: 'bold'}}>{this.state.earningsCurr}</Text>
+                            <Text style={{color: '#4F4F4F', fontSize: 30}}>$ </Text>
+                            <Text style={{color: '#4F4F4F', fontSize: 50, fontWeight: 'bold'}}>{this.state.earningsCurr}</Text>
                         </View>
                     </View>
                     <View style={{marginTop: 30, flexDirection: 'column', justifyContent: 'space-between', flex: 0.6}}>
                         <View style={{padding: 5, flexDirection: 'row', justifyContent: 'space-around', width: width}}>
                             <View style={{alignItems: 'center', justifyContent: 'space-around', width: width/3, height: height/9}}>
-                                <Text style={{fontSize: 11, textTransform: 'uppercase', marginBottom: 5, fontWeight: 'bold'}}>Time Driven</Text>
-                                {this.formatToDetailedTime(this.state.timeCurr, 30, 20)}
+                                <Text style={{fontSize: 11, textTransform: 'uppercase', marginBottom: 5, fontWeight: 'bold', color: '#B4B4B4'}}>Time Driven</Text>
+                                {this.formatToDetailedTime(this.state.timeCurr, 30, 20, 'normal', '#535353', '#4F4F4F')}
                                 {this.displayTierSchedule()}
                             </View>
                             <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-around', width: width/3, height: height/9}}>
-                                <Text style={{fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold'}}>Next Tier</Text>
+                                <Text style={{fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold', color: '#B4B4B4'}}>Next Tier</Text>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{fontSize: 25}}>$</Text>
-                                    <Text style={{fontSize: 30}}>{this.state.earningUntilNextTier}</Text>
+                                    <Text style={{color: '#535353', fontSize: 25}}>$</Text>
+                                    <Text style={{color: '#535353', fontSize: 30}}>{this.state.earningUntilNextTier}</Text>
                                 </View>
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    {this.formatToDetailedTime(this.state.timeUntilNextTier, 13, 13, 'bold', 'tomato')}
-                                    <Text style={{fontSize: 13, lineHeight: 13}}> to go</Text>
+                                    {this.formatToDetailedTime(this.state.timeUntilNextTier, 13, 13, 'bold', 'tomato', '#B4B4B4')}
+                                    <Text style={{fontSize: 13, lineHeight: 13, color: '#B4B4B4'}}> to go</Text>
                                 </View>
                             </View>
                         </View>
@@ -179,9 +179,9 @@ export default class Home extends Component {
                     {this.setButton()}
                 </View>
                 <View style={{padding: 20, marginTop: 10}}>
-                    <Text style={{fontSize: 20, fontWeight: 'bold', color: '#313131', marginBottom: 10}}>Earn more</Text>
+                    <Text style={{color: '#535353', fontSize: 20, fontWeight: 'bold', color: '#5A5A5A', marginBottom: 10}}>Earn more</Text>
                     <View style={{flexDirection: 'row', marginBottom: 15}}>
-                        <Text style={{fontSize: 14, color: '#313131'}}>Your promo code is: </Text>
+                        <Text style={{fontSize: 14, color: '#959595'}}>Your promo code is: </Text>
                         <Text style={{color: '#5BCCF2', fontWeight: 'bold'}}>{this.state.codePromotion}</Text>
                     </View>
                     <CustomButton numPromotions={this.state.numPromotions} buttonText={"Promotions"} borderBottomWidth={0} borderTopRadius={4}/>

@@ -25,12 +25,12 @@ export default class CustomButton extends Component {
 
     render(){
         return (
-          <TouchableOpacity onPress={() => console.log("amcik")} style={{backgroundColor: 'white', padding: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: '#BFBFBF', borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius}}>
+          <TouchableOpacity onPress={() => console.log("amcik")} style={{backgroundColor: 'white', padding: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: '#BFBFBF', borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius, borderColor: '#E6E6E6'}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{color: 'grey', fontSize: 13}}>{this.props.buttonText}</Text>
+                <Text style={{color: 'grey', fontSize: 13, color: '#939393'}}>{this.props.buttonText}</Text>
                 {this.displayPromoNotfication()}
             </View>
-            <Ionicons name="ios-arrow-forward" size={15} color={'#BFBFBF'}/>
+            <Ionicons name="ios-arrow-forward" size={15} color="#C4C4C4"/>
           </TouchableOpacity>
         );
     }

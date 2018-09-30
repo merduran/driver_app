@@ -12,8 +12,8 @@ export default class ExpandScreenButton extends Component {
     render(){
         return (
             <TouchableOpacity onPress={() => this.props.setScreenHeight()} style={{position: 'absolute', bottom: 20, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 11}}>Show more</Text>
-                <Ionicons name={"ios-arrow-down"} size={11}/>
+                <Text style={{fontSize: 11, color: '#B4B4B4'}}>Show more</Text>
+                <Ionicons name={"ios-arrow-down"} size={11} color='#B4B4B4'/>
             </TouchableOpacity>
         );
     }

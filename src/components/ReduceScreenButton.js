@@ -19,8 +19,8 @@ export default class ReduceScreenButton extends Component {
         // );
         return (
             <TouchableOpacity onPress={() => this.props.setScreenHeight()} style={{position: 'absolute', bottom: 20, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                <Ionicons name={"ios-arrow-up"} size={11}/>
-                <Text style={{fontSize: 11}}>Show less</Text>
+                <Ionicons name={"ios-arrow-up"} color='#B4B4B4' size={11}/>
+                <Text style={{fontSize: 11, color: '#B4B4B4'}}>Show less</Text>
             </TouchableOpacity>
         );
     }

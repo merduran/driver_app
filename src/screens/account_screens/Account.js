@@ -13,20 +13,18 @@ export default class Account extends Component {
 
     constructor(props){
         super(props);
-
         this.state = {
         	driverName: 'Bonav',
-        	driverCar: 'DB5'
+        	driverCar: 'DB5',
+        	checkUpDate: new Date()
         };
 
     }
-    // TODO: make EDITS clickable
 
     render(){
-    	// Only render til every state var is filled in.
         return (
         	<View style={{backgroundColor: '#F9F9F9', flex: 1}}>
-	            <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', backgroundColor: '#313131', height: height / 3.5}}>
+	            <View style={styles.editableAccountInfoContainer}>
 	                <EditableAccountInfo
 	                	imageSource={require('../../images/driver_pic.jpg')}
 	                	editableInfo={this.state.driverName}
@@ -37,8 +35,8 @@ export default class Account extends Component {
 	                	editableInfo={this.state.driverCar}
 	                />
 	            </View>
-	            <View style={{padding: 20}}>
-	                <Text style={{fontSize: 25, fontWeight: 'bold', color: '#313131', marginBottom: 10}}>Account</Text>
+	            <View style={styles.accountFormContainer}>
+	                <Text style={styles.accountHeader}>Account</Text>
 	                <CustomButton buttonText={"Driver Profile"} borderBottomWidth={0} borderTopRadius={4}/>
 	                <CustomButton buttonText={"Payment & Banking"} borderBottomWidth={0}/>
 	                <CustomButton buttonText={"Billing History"} borderBottomWidth={0}/>
@@ -52,4 +50,22 @@ export default class Account extends Component {
 
 
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+	editableAccountInfoContainer: {
+		flexDirection: 'row', 
+		justifyContent: 'center', 
+		alignItems: 'center', 
+		backgroundColor: '#313131', 
+		height: height / 3.5
+	},
+	accountFormContainer: {
+		padding: 20,
+		marginTop: 10
+	},
+	accountHeader: {
+		fontSize: 23, 
+        fontWeight: 'bold', 
+        color: '#5A5A5A', 
+        marginBottom: 10
+	}
+});

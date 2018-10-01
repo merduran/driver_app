@@ -18,25 +18,18 @@ export default class CustomButton extends Component {
 
 
 
-    render(){
-        // var stylesS = StyleSheet.create({
-        //     customButtonContainer: {
-        //         backgroundColor: '#FBFBFB', 
-        //         padding: 10, 
-        //         flexDirection: 'row', 
-        //         justifyContent: 'space-between', 
-        //         alignItems: 'center', 
-        //         borderWidth: 1,
-        //         borderColor: '#E6E6E6'
-        //     }
-        // });   
+    render(){ 
+        iconSize = 15;
+        iconColor = "#C4C4C4";
+        buttonTitle = "Show more";
+        iconName = "ios-arrow-forward";
         return (
           <TouchableOpacity onPress={console.log("ANNEN")} style={[styles.customButtonContainer, { borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius }]}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Text style={{color: 'grey', fontSize: 13, color: '#939393'}}>{this.props.buttonText}</Text>
+            <View style={styles.customButtonTextContainer}>
+                <Text style={styles.customButtonTitle}>{this.props.buttonText}</Text>
                 {this.displayPromoNotfication()}
             </View>
-            <Ionicons name="ios-arrow-forward" size={15} color="#C4C4C4"/>
+            <Ionicons name={iconName} size={iconSize} color={iconColor}/>
           </TouchableOpacity>
         );
     }
@@ -51,5 +44,14 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         borderWidth: 1,
         borderColor: '#E6E6E6'
+    },
+    customButtonTitle: {
+        color: 'grey', 
+        fontSize: 13, 
+        color: '#939393'
+    },
+    customButtonTextContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center'
     }
 });    

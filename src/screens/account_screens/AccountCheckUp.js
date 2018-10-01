@@ -28,7 +28,7 @@ export default class AccountCheckUp extends Component {
                     <Text style={styles.accountHeader}>Checkup</Text>
                     <View style={styles.accountSubHeaderContainer}>
                         <Text style={styles.accountSubHeader}>Complete monthly checkup by </Text>
-                        <Text style={styles.checkupDate}>12/20/18</Text>
+                        <Text style={styles.checkupDate}>{'12/20/18'}</Text>
                     </View>
                     <Text style={styles.checkupInstructions}>
                         To complete checkup, simply click the button below
@@ -84,7 +84,8 @@ const styles = StyleSheet.create({
         color: '#5A5A5A',
     },
     checkupDate: {
-        color: 'tomato'
+        color: 'tomato',
+        fontWeight: 'bold'
     },
     checkupInstructions: {
         marginTop: 20,

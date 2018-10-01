@@ -33,7 +33,7 @@ const AccountStack = createStackNavigator(
     AccountPayments: AccountPayments, 
   },
   {
-    initialRouteName: 'AccountCheckUp',
+    initialRouteName: 'Account',
     navigationOptions: {
       headerTitleStyle: {
         fontWeight: 'bold',

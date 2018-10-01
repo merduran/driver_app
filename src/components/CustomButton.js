@@ -24,7 +24,7 @@ export default class CustomButton extends Component {
         buttonTitle = "Show more";
         iconName = "ios-arrow-forward";
         return (
-          <TouchableOpacity onPress={console.log("ANNEN")} style={[styles.customButtonContainer, { borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius }]}>
+          <TouchableOpacity onPress={this.props.onPress} style={[styles.customButtonContainer, { borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius }]}>
             <View style={styles.customButtonTextContainer}>
                 <Text style={styles.customButtonTitle}>{this.props.buttonText}</Text>
                 {this.displayPromoNotfication()}

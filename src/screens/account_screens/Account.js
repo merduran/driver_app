@@ -16,13 +16,14 @@ export default class Account extends Component {
         this.state = {
         	driverName: 'Bonav',
         	driverCar: 'DB5',
-        	checkUpDate: new Date()
+        	// TODO: Fill this in
+        	checkUpDate: '12/20/18'
         };
     }
 
     render(){
         return (
-        	<View style={{backgroundColor: '#F9F9F9', flex: 1}}>
+        	<View style={styles.screen}>
 	            <View style={styles.editableAccountInfoContainer}>
 	                <EditableAccountInfo
 	                	imageSource={require('../../images/driver_pic.jpg')}
@@ -37,9 +38,9 @@ export default class Account extends Component {
 	            <View style={styles.accountFormContainer}>
 	                <Text style={styles.accountHeader}>Account</Text>
 	                <CustomButton buttonText={"Driver Profile"} borderBottomWidth={0} borderTopRadius={4}/>
-	                <CustomButton buttonText={"Payment & Banking"} borderBottomWidth={0}/>
+	                <CustomButton buttonText={"Payment & Banking"} borderBottomWidth={0} onPress={() => this.props.navigation.navigate('AccountPayments')}/>
 	                <CustomButton buttonText={"Billing History"} borderBottomWidth={0}/>
-	                <CustomButton buttonText={"Checkup"} borderBottomWidth={1} borderBottomRadius={4}/>
+	                <CustomButton buttonText={"Checkup"} borderBottomWidth={1} borderBottomRadius={4} onPress={() => this.props.navigation.navigate('AccountCheckUp')}/>
 	            </View>
             </View>
         );
@@ -50,6 +51,10 @@ export default class Account extends Component {
 
 
 const styles = StyleSheet.create({
+	screen: {
+		backgroundColor: '#F9F9F9', 
+		flex: 1
+	},
 	editableAccountInfoContainer: {
 		flexDirection: 'row', 
 		justifyContent: 'center', 

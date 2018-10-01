@@ -18,7 +18,6 @@ export default class Account extends Component {
         	driverCar: 'DB5',
         	checkUpDate: new Date()
         };
-
     }
 
     render(){
@@ -59,8 +58,7 @@ const styles = StyleSheet.create({
 		height: height / 3.5
 	},
 	accountFormContainer: {
-		padding: 20,
-		marginTop: 10
+		padding: 20
 	},
 	accountHeader: {
 		fontSize: 23, 

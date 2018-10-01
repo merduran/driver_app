@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-import { Text, 
+import { 
+    Text, 
     StyleSheet, 
     View,
-    TouchableOpacity     
+    TouchableOpacity,
+    TextInput,
+    Dimensions     
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
+import SubmitButton from '../../components/SubmitButton';
 
 export default class AccountCheckUp extends Component {
 	
@@ -14,12 +18,13 @@ export default class AccountCheckUp extends Component {
 
     constructor(props){
         super(props);
+        this.state = { text: '' }
     }
 
     render(){
         return (
             <View style={styles.screen}>
-                <View style={styles.checkupFormContainer}>
+                <View style={[styles.checkupFormContainer, { marginTop: 25 } ]}>
                     <Text style={styles.accountHeader}>Checkup</Text>
                     <View style={styles.accountSubHeaderContainer}>
                         <Text style={styles.accountSubHeader}>Complete monthly checkup by </Text>
@@ -36,13 +41,27 @@ export default class AccountCheckUp extends Component {
                         <Text style={styles.link}>Can't take photos? Contact support</Text>
                     </TouchableOpacity>
                 </View>
+                <View style={styles.checkupFormContainer}>
+                    <Text style={styles.commentsHeader}>Additional Comments</Text>
+                    <Text style={styles.checkupInstructions}>
+                        If there is anything you have questions about or something
+                        seems wrong with the display, please let us know below
+                    </Text>
+                    <TextInput
+                        style={styles.commentsInput}
+                        placeholder={"Message..."}
+                        placeholderTextColor={'#B4B4B4'}
+                        multiline={true}
+                        onChangeText={(text) => this.setState({text: text})}
+                    />
+                </View>
+                <SubmitButton shouldDisableSubmitButton={!this.state.text.length}/>
             </View>
         );
     }
 }
 
-
-
+const { height, width } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     screen: {
@@ -50,8 +69,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     checkupFormContainer: {
-        padding: 20,
-        marginTop: 25
+        padding: 20
     },
     accountHeader: {
         fontSize: 23, 
@@ -85,6 +103,20 @@ const styles = StyleSheet.create({
         alignSelf: 'flex-start',
         borderBottomWidth: 1,
         borderColor: '#B4B4B4',
+    },
+    commentsHeader: {
+        fontSize: 20, 
+        fontWeight: 'bold', 
+        color: '#5A5A5A', 
+    },
+    commentsInput: {
+        borderWidth: 1,
+        borderColor: '#E6E6E6',
+        color: '#5A5A5A',
+        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        height: 140,
     }
 
 });

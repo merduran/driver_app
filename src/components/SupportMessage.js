@@ -1,41 +1,76 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
+import { 
+    Text, 
+    StyleSheet, 
+    TouchableOpacity, 
+    Dimensions,
+    View 
+} from 'react-native';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 const { height, width } = Dimensions.get('window');
 
 export default class SupportMessage extends Component {
 
+    constructor(props){
+        super(props);
+    }
+
     render(){ 
-        buttonColor = this.props.shouldDisableSubmitButton ? '#E4E4E4': '#FD6E5B'
-        shadowColor = this.props.shouldDisableSubmitButton ? "#F9F9F9" : '#FD6E5B'
+        iconSize = 15;
+        iconColor = "#C4C4C4";
+        buttonTitle = "Show more";
+        iconName = "ios-arrow-forward";
         return (
-            <TouchableOpacity disabled={this.props.shouldDisableSubmitButton} style={[styles.buttonContainer, { backgroundColor: buttonColor, shadowColor: shadowColor }]}>
-                <Text style={styles.buttonText}>submit</Text>
-            </TouchableOpacity>
+          <TouchableOpacity onPress={this.props.onPress} style={[styles.supportMessageContainer, { borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius }]}>
+            <View style={styles.prevMessageTextContainer}>
+                <Text style={styles.prevMessageDate}>{this.props.date}</Text>
+                <View style={styles.textContainer}>
+                    <Text style={styles.prevMessageTopic}>{this.props.subject}  -  </Text>
+                    <Text numberOfLines={1} ellipsizeMode={'tail'} style={[styles.prevMessage, { width: ( width / 2.8 - this.props.message.length ) }]}>{this.props.message}</Text>
+                </View>
+            </View>
+            <Ionicons name={iconName} size={iconSize} color={iconColor}/>
+          </TouchableOpacity>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    buttonContainer: {
-        position: 'absolute',
-        bottom: 25,
-        left: 0,
-        right: 0,
-        marginLeft: 20,
-        marginRight: 20,
-        padding: 12,
-        backgroundColor: "#FD6E5B", 
-        flexDirection: 'row',
-        justifyContent: 'center',
-        borderRadius: 5,
-        shadowOpacity: 0.7,
-        shadowRadius: 5,
-        shadowOffset: { width: 0, height: 2 },
+    supportMessageContainer: {
+        backgroundColor: '#FBFBFB', 
+        padding: 10, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        borderWidth: 1,
+        borderColor: '#E6E6E6'
     },
-    buttonText: {
-        textTransform: 'uppercase',
-        fontSize: 13,
-        letterSpacing: 1,
-        color: 'white'
+    prevMessageTopic: {
+        fontWeight: 'bold',
+        fontSize: 13, 
+        color: '#939393'
+    },
+    prevMessageDate: {
+        position: 'absolute',
+        left: 0,
+        fontSize: 13, 
+        color: '#939393'
+    },
+    prevMessageTextContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center',
+        justifyContent: 'space-around',
+    },
+    prevMessage: {
+        fontSize: 13, 
+        color: '#939393'
+    },
+    textContainer: {
+        position: 'absolute',
+        left: 80,
+        width: width / 1.8,
+        flexDirection: 'row',
+        alignItems: 'center',
+
     }
 });    

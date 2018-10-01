@@ -7,9 +7,10 @@ import {
 } from 'react-native';
 import CustomButton from '../../components/CustomButton';
 import SubmitButton from '../../components/SubmitButton';
+import SupportMessage from '../../components/SupportMessage';
 
 export default class HelpSupportMessages extends Component {
-
+    // TODO: DISPLAY PREVIOUS SUPPORT MESSAGES: FIRST FETCH FROM DEVICES STORAGE
     static navigationOptions = {
         title: 'FIREFLY'
     };
@@ -25,12 +26,25 @@ export default class HelpSupportMessages extends Component {
             <View style={styles.screen}>
                 <View style={[styles.checkupFormContainer, { marginTop: 25 }]}>
                     <Text style={styles.accountHeader}>Support Messages</Text>
-                    <CustomButton buttonText={"Issue with the display"} borderBottomWidth={0} borderTopRadius={4}/>
-                    <CustomButton buttonText={"Report a bug"} borderBottomWidth={1} borderBottomRadius={4}/>
+                    <SupportMessage 
+                        date={"1 / 12 / 98"} 
+                        subject={"Screen not on!"}
+                        message={"Hey I can't open the screen."}
+                        borderBottomWidth={0} 
+                        borderTopRadius={4}
+                    />
+                    <SupportMessage 
+                        date={"3 / 09 / 07"} 
+                        subject={"Pixels"}
+                        message={"I think one of the pixels is broken."}
+                        borderBottomWidth={1} 
+                        borderBottomRadius={4}
+                    />
                 </View>
                 <View style={styles.checkupFormContainer}>
                     <Text style={styles.accountHeader}>Contact us</Text>
                     <TextInput
+                        maxLength={32} 
                         style={styles.contactSubjectInput}
                         placeholder={"Subject..."}
                         placeholderTextColor={'#B4B4B4'}

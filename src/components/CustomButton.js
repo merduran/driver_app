@@ -9,13 +9,6 @@ export default class CustomButton extends Component {
     constructor(props){
         super(props);
     }
-    // TODO: less detailed bar
-    // <TouchableOpacity onPress={() => console.log("amcik")} style={{backgroundColor: 'white', padding: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: '#BFBFBF', borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius}}>
-            
-    //         <Text style={{color: 'grey', fontSize: 13}}>{this.props.buttonText}</Text>
-    //         <PromoNotification numPromotion={this.props.numPromotion}></PromoNotification>
-    //         <Ionicons name="ios-arrow-forward" size={15} color={'#BFBFBF'}/>
-    //       </TouchableOpacity>
 
     displayPromoNotfication(){
         if (this.props.numPromotions){
@@ -23,9 +16,22 @@ export default class CustomButton extends Component {
         }
     }
 
+
+
     render(){
+        // var stylesS = StyleSheet.create({
+        //     customButtonContainer: {
+        //         backgroundColor: '#FBFBFB', 
+        //         padding: 10, 
+        //         flexDirection: 'row', 
+        //         justifyContent: 'space-between', 
+        //         alignItems: 'center', 
+        //         borderWidth: 1,
+        //         borderColor: '#E6E6E6'
+        //     }
+        // });   
         return (
-          <TouchableOpacity onPress={() => console.log("amcik")} style={{backgroundColor: 'white', padding: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderWidth: 1, borderColor: '#BFBFBF', borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius, borderColor: '#E6E6E6'}}>
+          <TouchableOpacity onPress={console.log("ANNEN")} style={[styles.customButtonContainer, { borderBottomWidth: this.props.borderBottomWidth, borderTopLeftRadius: this.props.borderTopRadius, borderTopRightRadius: this.props.borderTopRadius, borderBottomLeftRadius: this.props.borderBottomRadius, borderBottomRightRadius: this.props.borderBottomRadius }]}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Text style={{color: 'grey', fontSize: 13, color: '#939393'}}>{this.props.buttonText}</Text>
                 {this.displayPromoNotfication()}
@@ -35,6 +41,15 @@ export default class CustomButton extends Component {
         );
     }
 }
-<ion-icon name="arrow-forward"></ion-icon>
 
-// const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    customButtonContainer: {
+        backgroundColor: '#FBFBFB', 
+        padding: 10, 
+        flexDirection: 'row', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        borderWidth: 1,
+        borderColor: '#E6E6E6'
+    }
+});    

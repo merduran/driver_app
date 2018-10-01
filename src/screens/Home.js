@@ -3,6 +3,10 @@ import { Easing, Animated, Text, StyleSheet, View, Button, Dimensions, LayoutAni
 import CustomButton from '../components/CustomButton';
 import ExpandScreenButton from '../components/ExpandScreenButton';
 import ReduceScreenButton from '../components/ReduceScreenButton';
+import ReferalsAndTotalEarningsView from '../components/ReferalsAndTotalEarningsView';
+import DayXOfYSchedule from '../components/DayXOfYSchedule';
+import EarningsInDollars from '../components/EarningsInDollars';
+
 const { height, width } = Dimensions.get('window');
 
 export default class Home extends Component {
@@ -33,156 +37,210 @@ export default class Home extends Component {
             numReferals: 0,
             expandScreen: true,
             expandableScreenHeight: new Animated.Value(height * 7/16),
-            buttonTitle: 'Show more'
+            buttonTitle: ''
         }
     }
 
-    setScreenHeight(){ 
+    dislayDetailedHomePage(){ 
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        if (this.state.expandScreen){
-            this.setState({ buttonTitle: 'Show less', expandableScreenHeight: height * 58/100 }); 
-        } else {
-            this.setState({ buttonTitle: 'Show more', expandableScreenHeight: height * 7/16 }); 
-        }
-        this.setState({ expandScreen: !this.state.expandScreen });
-
+        if (this.state.expandScreen) { buttonTitle  = 'Show less'; expandableScreenHeight = height * 0.58 }
+        else { buttonTitle = 'Show more'; expandableScreenHeight = height * 7/16 }         
+        this.setState({ 
+            expandScreen: !this.state.expandScreen,
+            expandableScreenHeight: expandableScreenHeight,
+            buttonTitle: buttonTitle
+        });
     }
 
-    setButton(){
-        if (this.state.expandScreen){
-            return <ExpandScreenButton setScreenHeight={this.setScreenHeight.bind(this)}></ExpandScreenButton>
-        }
-        return <ReduceScreenButton setScreenHeight={this.setScreenHeight.bind(this)}></ReduceScreenButton>
-    }
-
-    formatToDetailedTime(timeMilli, fontSizeVals, fontSizeUnits, fontWeightVals, colorVals, colorUnits){
-        hours = timeMilli / (60 * 60 * 1000);
-        if (this.state.expandScreen){
-            Math.floor(hours) < hours ? hours = Math.floor(hours) + 1: hours = Math.floor(hours);
-            return(
-                <View style={{flexDirection: 'row'}}>
-                    <Text style={{color: colorVals, fontWeight: fontWeightVals, lineHeight: fontSizeVals, fontSize: fontSizeVals}}>{hours}</Text>
-                    <Text style={{color: colorUnits, lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>h</Text>
-                </View>
-            );
-        } else {
-            minutes = Math.ceil((timeMilli - Math.floor(hours) * 60 * 60 * 1000) / (60 * 1000));
-            return(
-                <View style={{flexDirection: 'row'}}>
-                    <Text style={{color: colorVals, fontWeight: fontWeightVals, lineHeight: fontSizeVals, fontSize: fontSizeVals}}>{Math.floor(hours)}</Text>
-                    <Text style={{color: colorUnits, lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>h </Text>
-                    <Text style={{color: colorVals, fontWeight: fontWeightVals, lineHeight: fontSizeVals, fontSize: fontSizeVals}}>{minutes}</Text>
-                    <Text style={{color: colorUnits, lineHeight: fontSizeVals, fontSize: fontSizeUnits}}>m</Text>
-                </View>
+    displayExpandOrReduceScreenButton(){
+        if (this.state.expandScreen){ 
+            return (
+                <ExpandScreenButton 
+                    dislayDetailedHomePage={this.dislayDetailedHomePage.bind(this)}>
+                </ExpandScreenButton>
             ); 
         }
+        return (
+            <ReduceScreenButton 
+                dislayDetailedHomePage={this.dislayDetailedHomePage.bind(this)}>
+            </ReduceScreenButton>
+        ); 
     }
 
-    showDetails(){
-        if (!this.state.expandScreen){
-            return(
-                <View style={{padding: 5, flexDirection: 'row', justifyContent: 'space-around', width: width, marginTop: 20}}>
-                    <View style={{alignItems: 'center', justifyContent: 'center', width: width/3, height: height/9}}>
-                        <Text style={{color: '#B4B4B4', fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold'}}>Referals</Text>
-                        <Text style={{color: '#B4B4B4',fontSize: 11, textTransform: 'uppercase'}}>{new Date().getFullYear()}</Text>
-                        <Text style={{color: '#4F4F4F', fontSize: 30}}>{this.state.numReferals}</Text>
-                    </View>
-                    <View style={{alignItems: 'center', justifyContent: 'center', width: width/3, height: height/9}}>
-                        <Text style={{color: '#B4B4B4', fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold'}}>Total Earnings</Text>
-                        <Text style={{color: '#B4B4B4', fontSize: 11, textTransform: 'uppercase'}}>{new Date().getFullYear()}</Text>
-                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                            <Text style={{color: '#4F4F4F', fontSize: 25}}>$</Text>
-                            <Text style={{color: '#4F4F4F', fontSize: 30}}>{this.state.earningsTotal}</Text>
-                        </View>
-                    </View>
+    displayDrivingTime(
+        time, 
+        fontSizeVals, 
+        fontSizeUnits, 
+        fontWeightVals, 
+        colorVals, 
+        colorUnits
+    ){
+        hoursInMilliSecs = 60 * 60 * 1000;
+        minutesInMilliSecs = hoursInMilliSecs / 60;
+        hours = time / hoursInMilliSecs;
+        flooredHours = Math.floor(hours);
+        const stylesTime = StyleSheet.create({
+            valsText: {
+                color: colorVals, 
+                fontSize: fontSizeVals,
+                fontWeight: fontWeightVals, 
+                lineHeight: fontSizeVals, 
+            }, 
+            unitsText: {
+                color: colorUnits, 
+                fontSize: fontSizeUnits,
+                lineHeight: fontSizeVals, 
+            }
+        });
+        if (this.state.expandScreen){
+            hours = flooredHours < hours ? flooredHours + 1 : flooredHours;
+            return (
+                <View style={styles.drivingTimeContainer}>
+                    <Text style={stylesTime.valsText}>{hours}</Text>
+                    <Text style={stylesTime.unitsText}>h</Text>
                 </View>
             );
-        }
-    }
-
-    displaySchedule(){
-        if (!this.state.expandScreen) {
-            return( 
-                <View style={{marginTop: 5, flexDirection: 'row', justifyContent: 'space-between'}}>
-                    <View style={{padding: 5, paddingRight: 10}}>
-                        <Text style={{color: '#B4B4B4', fontSize: 11, width: 100, textAlign: 'right', textTransform: 'uppercase'}}>Day {this.state.dayCurr} of {this.state.dayTotal}</Text>
-                    </View>
-                    <View style={{padding: 5, paddingLeft: 10, borderLeftColor: 'tomato', borderLeftWidth: 2, }}>
-                        <Text style={{fontSize: 11, color: '#B4B4B4', width: 100, textAlign: 'left', textTransform: 'uppercase'}}>{this.state.startDayCurrTier}/18 - {this.state.endDayCurrTier}/18</Text>
-                    </View>
-                </View>
-            );
-        }
-        return(
-            <View style={{marginTop: 5, padding: 5, paddingRight: 10}}>
-                <Text style={{fontSize: 11, color: '#B4B4B4', width: 100, textAlign: 'center', textTransform: 'uppercase'}}>Day {this.state.dayCurr} of {this.state.dayTotal}</Text>
+        } 
+        minutes = Math.ceil((time - flooredHours * hoursInMilliSecs) / hoursInMilliSecs);
+        return (
+            <View style={styles.drivingTimeContainer}>
+                <Text style={stylesTime.valsText}>{flooredHours}</Text>
+                <Text style={stylesTime.unitsText}>h </Text>
+                <Text style={stylesTime.valsText}>{minutes}</Text>
+                <Text style={stylesTime.unitsText}>m</Text>
             </View>
+        ); 
+    }
+
+    displayReferalsAndTotalEarnings(){
+        if (!this.state.expandScreen){
+            return (
+                <ReferalsAndTotalEarningsView 
+                    numReferals={this.state.numReferals} 
+                    earningsTotal={this.state.earningsTotal}
+                />
+            );
+        }
+    }
+
+    displayDaySchedule(){
+        year = new Date().getFullYear().toString().slice(-2);
+        dayXofYText = 'day ' + this.state.dayCurr + ' of ' + this.state.dayTotal;
+        dayXofYNumber = this.state.startDayCurrTier + "/" + year + " - " + this.state.endDayCurrTier + "/" + year;
+        if (!this.state.expandScreen) {
+            year = new Date().getFullYear().toString().slice(-2);
+            return ( 
+                <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                    <DayXOfYSchedule 
+                        marginTop={10} 
+                        textAlign={'right'}
+                        text={dayXofYText}
+                        paddingRight={10}
+                    />
+                    <DayXOfYSchedule 
+                        marginTop={10} 
+                        textAlign={'left'}
+                        text={dayXofYNumber}
+                        paddingLeft={10}
+                        borderLeftWidth={1}
+                        borderColor={'tomato'}
+                    />
+                </View>
+            );
+        }
+        return (
+            <DayXOfYSchedule 
+                marginTop={10} 
+                textAlign={'center'}
+                text={dayXofYText}
+            />
         );
     }
 
     displayTierSchedule(){
         if (this.state.expandScreen){
             return (
-                <View style={{flexDirection: 'row', alignItems: 'center', fontSize: 13}}>
-                    <Text style={{color: '#B4B4B4'}}>Tier </Text>
+                <View style={styles.tierScheduleContainer}>
+                    <Text style={styles.tierText}>Tier </Text>
                     <Text style={{color: '#9A9A9A', fontWeight: 'bold'}}>{this.state.tierCurr}</Text>
                 </View>
             );
         }
         return (
             <View style={{flexDirection: 'row', alignItems: 'center', fontSize: 13}}>
-                <Text style={{color: '#B4B4B4'}}>Tier </Text>
+                <Text style={styles.tierText}>Tier </Text>
                 <Text style={{color: '#9A9A9A', fontWeight: 'bold'}}>{this.state.tierCurr} </Text>
-                <Text style={{color: '#B4B4B4'}}>of </Text>
+                <Text style={styles.tierText}>of </Text>
                 <Text style={{color: '#9A9A9A', fontWeight: 'bold'}}>{this.state.tierTotal}</Text>
             </View>
         );
-        
     }
 
     render(){
         // TODO: Only render after all state variables are loaded 
         return (
-            <View style={{backgroundColor: '#F9F9F9', height: height}}>
-                <View style={{backgroundColor: '#FFFFFF', height: this.state.expandableScreenHeight, flexDirection: 'column', alignItems: 'center'}}>
-                    <View style={{marginTop: 35, alignItems: 'center', justifyContent: 'center'}}>
-                        <View>
-                            <Text style={{color: "#4F4F4F", fontSize: 22, fontWeight: 'bold'}}>Earnings</Text>
-                        </View>        
-                        {this.displaySchedule()}
-                        <View style={{padding: 2, flexDirection: 'row', alignItems: 'center'}}>
-                            <Text style={{color: '#4F4F4F', fontSize: 30}}>$ </Text>
-                            <Text style={{color: '#4F4F4F', fontSize: 50, fontWeight: 'bold'}}>{this.state.earningsCurr}</Text>
-                        </View>
+            <View style={styles.screen}>
+                <View style={[styles.expandableScreen, { height: this.state.expandableScreenHeight }]}>
+                    <View style={styles.currEarningsContainer}>
+                        <View><Text style={styles.currEarningsHeader}>Earnings</Text></View>
+                        {this.displayDaySchedule()}
+                        <EarningsInDollars
+                            quantity={this.state.earningsCurr}
+                            padding={4}
+                            color={'#4F4F4F'}
+                            dollarSignFontSize={30}
+                            quantityFontSize={50}
+                            quantityFontWeight={'bold'}
+                        />
                     </View>
-                    <View style={{marginTop: 30, flexDirection: 'column', justifyContent: 'space-between', flex: 0.6}}>
+                    <View style={{marginTop: 30, justifyContent: 'space-between', flex: 0.6}}>
                         <View style={{padding: 5, flexDirection: 'row', justifyContent: 'space-around', width: width}}>
-                            <View style={{alignItems: 'center', justifyContent: 'space-around', width: width/3, height: height/9}}>
-                                <Text style={{fontSize: 11, textTransform: 'uppercase', marginBottom: 5, fontWeight: 'bold', color: '#B4B4B4'}}>Time Driven</Text>
-                                {this.formatToDetailedTime(this.state.timeCurr, 30, 20, 'normal', '#535353', '#4F4F4F')}
+                            <View style={styles.infoContainer}>
+                                <Text style={styles.timeDrivenAndNextTierSubHeaders}>Time Driven</Text>
+                                {
+                                    this.displayDrivingTime(
+                                        this.state.timeCurr, 
+                                        30, 
+                                        20, 
+                                        'normal', 
+                                        '#535353', 
+                                        '#4F4F4F'
+                                    )
+                                }
                                 {this.displayTierSchedule()}
                             </View>
-                            <View style={{backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-around', width: width/3, height: height/9}}>
-                                <Text style={{fontSize: 11, textTransform: 'uppercase', fontWeight: 'bold', color: '#B4B4B4'}}>Next Tier</Text>
+                            <View style={styles.infoContainer}>
+                                <Text style={styles.timeDrivenAndNextTierSubHeaders}>Next Tier</Text>
+                                <EarningsInDollars
+                                    quantity={this.state.earningUntilNextTier}
+                                    color={'#535353'}
+                                    dollarSignFontSize={25}
+                                    quantityFontSize={30}
+                                />
                                 <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    <Text style={{color: '#535353', fontSize: 25}}>$</Text>
-                                    <Text style={{color: '#535353', fontSize: 30}}>{this.state.earningUntilNextTier}</Text>
-                                </View>
-                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                    {this.formatToDetailedTime(this.state.timeUntilNextTier, 13, 13, 'bold', 'tomato', '#B4B4B4')}
-                                    <Text style={{fontSize: 13, lineHeight: 13, color: '#B4B4B4'}}> to go</Text>
+                                    {
+                                        this.displayDrivingTime(
+                                            this.state.timeUntilNextTier, 
+                                            15, 
+                                            13, 
+                                            'bold', 
+                                            'tomato', 
+                                            '#B4B4B4'
+                                        )
+                                    }
+                                    <Text style={styles.tierText}> to go</Text>
                                 </View>
                             </View>
                         </View>
-                        {this.showDetails()}
+                        {this.displayReferalsAndTotalEarnings()}
                     </View>
-                    {this.setButton()}
+                    {this.displayExpandOrReduceScreenButton()}
                 </View>
-                <View style={{padding: 20, marginTop: 10}}>
-                    <Text style={{color: '#535353', fontSize: 20, fontWeight: 'bold', color: '#5A5A5A', marginBottom: 10}}>Earn more</Text>
+                <View style={styles.promoFormContainer}>
+                    <Text style={styles.promoFormHeader}>Earn more</Text>
                     <View style={{flexDirection: 'row', marginBottom: 15}}>
-                        <Text style={{fontSize: 14, color: '#959595'}}>Your promo code is: </Text>
-                        <Text style={{color: '#5BCCF2', fontWeight: 'bold'}}>{this.state.codePromotion}</Text>
+                        <Text style={styles.promoFormSubHeader}>Your promo code is: </Text>
+                        <Text style={styles.promoCode}>{this.state.codePromotion}</Text>
                     </View>
                     <CustomButton numPromotions={this.state.numPromotions} buttonText={"Promotions"} borderBottomWidth={0} borderTopRadius={4}/>
                     <CustomButton buttonText={"Invites"} borderBottomWidth={1} borderBottomRadius={4}/>
@@ -195,4 +253,65 @@ export default class Home extends Component {
 
 
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    screen: {
+        backgroundColor: '#F9F9F9', 
+        height: height
+    },
+    expandableScreen: {
+        backgroundColor: '#FFFFFF', 
+        alignItems: 'center'
+    },
+    currEarningsContainer: {
+        marginTop: 35, 
+        alignItems: 'center', 
+        justifyContent: 'center'
+    },
+    currEarningsHeader: {
+        color: "#4F4F4F", 
+        fontSize: 22, 
+        fontWeight: 'bold'
+    },
+    drivingTimeContainer: {
+        flexDirection: 'row'
+    },
+    timeDrivenAndNextTierSubHeaders: {
+        fontSize: 11, 
+        textTransform: 'uppercase', 
+        fontWeight: 'bold', 
+        color: '#B4B4B4'
+    },
+    infoContainer: {
+        alignItems: 'center', 
+        justifyContent: 'space-around', 
+        width: width/3, 
+        height: height/9
+    },
+    promoFormContainer: {
+        padding: 20, 
+        marginTop: 10        
+    },
+    promoFormHeader: {
+        fontSize: 20, 
+        fontWeight: 'bold', 
+        color: '#5A5A5A', 
+        marginBottom: 10
+    },
+    promoFormSubHeader: {
+        fontSize: 14, 
+        color: '#959595'
+    },
+    promoCode: {
+        color: '#5BCCF2', 
+        fontWeight: 'bold'
+    },
+    tierScheduleContainer: {
+        flexDirection: 'row', 
+        alignItems: 'center', 
+    }, 
+    tierText: {
+        fontSize: 13, 
+        lineHeight: 15, 
+        color: '#B4B4B4'
+    }
+});

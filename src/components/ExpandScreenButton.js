@@ -1,22 +1,39 @@
 import React, { Component } from 'react';
-import { Text, StyleSheet, Dimensions, View, Image, TouchableOpacity, Button } from 'react-native';
-const { height, width } = Dimensions.get('window');
+
+import { 
+    Text, 
+    StyleSheet, 
+    TouchableOpacity 
+} from 'react-native';
+
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 export default class ExpandScreenButton extends Component {
 
-    constructor(props){
-        super(props);
-    }
-    // TODO: make EDITS clickable
     render(){
+        iconSize = 11;
+        iconColor = '#B4B4B4';
+        buttonTitle = "Show more";
+        iconName = "ios-arrow-down"
         return (
-            <TouchableOpacity onPress={() => this.props.setScreenHeight()} style={{position: 'absolute', bottom: 20, flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
-                <Text style={{fontSize: 11, color: '#B4B4B4'}}>Show more</Text>
-                <Ionicons name={"ios-arrow-down"} size={11} color='#B4B4B4'/>
+            <TouchableOpacity onPress={this.props.dislayDetailedHomePage} style={styles.expandScreenSizeButtonContainer}>
+                <Text style={styles.expandScreenSizeButtonText}>{buttonTitle}</Text>
+                <Ionicons name={iconName} size={iconSize} color={iconColor}/>
             </TouchableOpacity>
         );
     }
 }
 
-// const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+    expandScreenSizeButtonContainer: {
+        position: 'absolute', 
+        bottom: 20, 
+        justifyContent: 'center', 
+        alignItems: 'center'
+    },
+    expandScreenSizeButtonText: {
+        fontSize: 11,
+        color: '#B4B4B4',
+        fontWeight: 'bold'
+    },
+});
